@@ -1,26 +1,22 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import Square from './square.js'
-import data from '../test-board-1.json'
+import Square from './Square.js'
 
 class Board extends React.Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-
-        }
-    }
-
     renderTable() {
-        const square = Math.sqrt(data.board.length)
+        //Ask for data passed via props
+        const { lettersData, addLetter } = this.props;
 
+        //Need to know the size of the grid
+        const square = Math.sqrt(lettersData.length)
+
+        //Build the board based on the number of letters
         let table = []
         let position = 0
         for (let i = 0; i < square; i++) {
             let columns = []
             for (let j = 0; j < square; j++) {
-                columns.push(this.renderSquare(data.board[position]))
+                columns.push(this.renderSquare(lettersData[position], addLetter))
                 position = position + 1
             }
             table.push(<div className="board-row">{columns}</div>)
@@ -28,15 +24,13 @@ class Board extends React.Component {
         return table
     }
 
-    renderSquare(letter) {
-        return <Square value={letter} />;
+    renderSquare(letter, addLetter) {
+        return <Square letter={letter} addLetter={addLetter} />;
     }
 
     render() {
         return (
-            <div>
-                {this.renderTable()}
-            </div>
+            this.renderTable()
         );
     }
 }

@@ -1,21 +1,26 @@
 import React from 'react'
-import ReactDom from 'react-dom'
 
 class Square extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             check: false
-         };
+        };
     }
-    
+
     render() {
-      return (
-        <button className="square" onClick={() => this.setState({check: !this.state.check})}>
-          {this.props.value}
-        </button>
-      );
+
+        const letter = this.props.letter
+
+        return (
+            <button
+                className="square"
+                onClick={() => this.props.addLetter(letter)}
+            >
+                {letter}
+            </button>
+        );
     }
-  }
+}
 
 export default Square
