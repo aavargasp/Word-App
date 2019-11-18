@@ -1,14 +1,17 @@
 import React from 'react'
 import Square from './Square.js'
+import data from '../test-board-2.json'
 
 class Board extends React.Component {
 
-    renderTable() {
-        //Ask for data passed via props
-        const { lettersData, addLetter } = this.props;
+    letters = data.board.slice();
+
+    render() {
+        //Ask handler passed via props
+        const onLetterClick = this.props.onLetterClick;
 
         //Need to know the size of the grid
-        const square = Math.sqrt(lettersData.length)
+        const square = Math.sqrt(this.letters.length)
 
         //Build the board based on the number of letters
         let table = []
@@ -16,7 +19,7 @@ class Board extends React.Component {
         for (let i = 0; i < square; i++) {
             let columns = []
             for (let j = 0; j < square; j++) {
-                columns.push(this.renderSquare(lettersData[position], addLetter))
+                columns.push(this.renderSquare(position, this.letters[position], onLetterClick))
                 position = position + 1
             }
             table.push(<div className="board-row">{columns}</div>)
@@ -24,14 +27,8 @@ class Board extends React.Component {
         return table
     }
 
-    renderSquare(letter, addLetter) {
-        return <Square letter={letter} addLetter={addLetter} />;
-    }
-
-    render() {
-        return (
-            this.renderTable()
-        );
+    renderSquare(id, letter, onLetterClick) {
+        return <Square key={id} letter={letter} onLetterClick={onLetterClick} />;
     }
 }
 

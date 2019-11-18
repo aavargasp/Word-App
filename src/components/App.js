@@ -1,37 +1,61 @@
 import React from 'react'
 import Board from './Board.js'
-import data from '../test-board-2.json'
+import dictionary from '../dictionary.json'
 
 class App extends React.Component {
 
-    state = {
-        word: []
-    };
+    words = dictionary.words.slice()
+    result = "invalid"
 
-    addLetter = letter => {
-        var newLettersArray = this.state.word.slice();
-        newLettersArray.push(letter);
-        this.setState({word: newLettersArray});
+    constructor() {
+        super()
+        this.state = {
+            currentWord: []
+        }
+        this.onLetterClick = this.onLetterClick.bind(this)
     }
 
     render() {
-
-        //Load array from JSON File
-        const letters = data.board.slice();
-
         return (
             <div className="App">
                 <div className="clear">
                     <label className="clear-label">clear word</label>
-                    <button className="clear-button" type="reset"></button>
+                    <button className="clear-button" type="reset" onClick={this.onClearClick}></button>
                 </div>
                 <Board
-                    lettersData={letters}
-                    addLetter={this.addLetter}
+                    onLetterClick={this.onLetterClick}
                 />
-                <div className="word">{this.state.word.join('')}</div>
+                <div className="word">
+                    <label>{this.state.currentWord.join('')}.......</label>
+                    <label>{this.result}</label>
+                </div>
             </div>
         )
+    }
+
+    onClearClick = () => {
+        this.setState({ currentWord: [] });
+        this.result = "invalid"
+    };
+
+    onLetterClick(letter) {
+        this.setState((prevState) => {
+            const newArray = prevState.currentWord.push(letter);
+            console.log("Current Word: ", prevState.currentWord)
+            this.checkDictionary(prevState.currentWord.join(''))
+            return newArray
+        })
+    }
+
+    checkDictionary(currentWord) {
+        const exists = this.words.some(
+            function (arrVal) {
+                return currentWord === arrVal.toUpperCase();
+            });
+        if (exists)
+            this.result = "valid"
+        else
+            this.result = "invalid"
     }
 }
 
