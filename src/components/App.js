@@ -12,22 +12,33 @@ class App extends React.Component {
         this.state = {
             currentWord: []
         }
+
         this.onLetterClick = this.onLetterClick.bind(this)
+        this.onSelectedLetterClick = this.onSelectedLetterClick.bind(this);
     }
 
     render() {
+
+        this.checkDictionary(this.state.currentWord.join(''))
+        console.log("Current Word: ", this.state.currentWord)
+
         return (
-            <div className="App">
-                <div className="clear">
-                    <label className="clear-label">clear word</label>
-                    <button className="clear-button" type="reset" onClick={this.onClearClick}></button>
+            <div className="app-container">
+                <div className="board-container">
+                    <Board
+                        onLetterClick={this.onLetterClick}
+                        onSelectedLetterClick={this.onSelectedLetterClick}
+                    />
                 </div>
-                <Board
-                    onLetterClick={this.onLetterClick}
-                />
-                <div className="word">
-                    <label>{this.state.currentWord.join('')}.......</label>
-                    <label>{this.result}</label>
+                <div className="tools-container">
+                    <div className="clear-container">
+                        <label className="clear-label">clear word</label>
+                        <button className="clear-button" type="reset" onClick={this.onClearClick}></button>
+                    </div>
+                    <div className="word-container">
+                        <label className="word">{this.state.currentWord.join('')}</label>
+                        <label className="word-result">{this.result}</label>
+                    </div>
                 </div>
             </div>
         )
@@ -40,11 +51,20 @@ class App extends React.Component {
 
     onLetterClick(letter) {
         this.setState((prevState) => {
-            const newArray = prevState.currentWord.push(letter);
-            console.log("Current Word: ", prevState.currentWord)
-            this.checkDictionary(prevState.currentWord.join(''))
-            return newArray
+            let currentWord = prevState.currentWord.push(letter)
+            return currentWord
         })
+    }
+
+    onSelectedLetterClick(letter) {
+        /* this.setState((prevState) => {
+            const newArray = prevState.currentWord.filter(item => item !== letter)
+            return newArray
+        }) */
+
+        this.setState(prevState => ({
+            currentWord: prevState.currentWord.filter(item => item !== letter)
+        }));
     }
 
     checkDictionary(currentWord) {
