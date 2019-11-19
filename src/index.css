@@ -5,7 +5,30 @@
   .app-container {
     display: flex;
     justify-content: center;
-    /* height: 100vh; */
+    align-items: stretch;
+  }
+
+  @media screen and (max-width: 768px) {
+    .app-container {
+      -webkit-flex-direction: column;
+      flex-direction: column;
+    }
+
+    .clear-container {
+      order: 0;
+      width: 276px;
+      align-self: center;
+    }
+
+    .board-container {
+      order: 1;
+    }
+
+    .word-container {
+      order: 2;
+      align-self: center;
+      width: 276px;
+    }
   }
 
   .board-container {
@@ -23,11 +46,11 @@
     background-image: linear-gradient(#f4cf6e, #e67538);
     border: 1px solid #bf3e46;
     color: #fff;
-    font-size: 16px;
+    font-size: 24px;
     font-weight: bold;
-    height: 35px;
+    height: 65px;
+    width: 65px;
     margin: 4px;
-    width: 35px;
     border-radius: 15%;
   }
 
@@ -35,32 +58,33 @@
     background-image: linear-gradient(#e25c63, #921d22);
     border: 1px solid #bf3e46;
     color: #fff;
-    font-size: 16px;
+    font-size: 24px;
     font-weight: bold;
-    height: 35px;
+    height: 65px;
+    width: 65px;
     margin: 4px;
-    width: 35px;
     border-radius: 15%;
   }
 
   .tools-container {
     display: flex;
     flex-direction: column;
-    margin-left: 10px;
     min-width: 200px;
     justify-content: space-between;
   }
 
   .clear-container {
     display: flex;
-    margin: 4px;
-    align-items: center;
     justify-content: flex-end;
+    align-items: center;
+    margin: 4px;
+    padding: 8px;
+    min-height: 45px;
   }
 
   .clear-label {
     color: #d8d8d8;
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .clear-button {
@@ -69,7 +93,7 @@
     border: 1px solid #d8d8d8;
     color: #fff;
     border-radius: 100%;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: lighter;
   }
   .clear-button::before {
@@ -78,14 +102,12 @@
 
   .word-container {
     display: flex;
-    border: 1px solid #979797;
-    height: 35px;
-    font-weight: bold;
-    font-size: 12px;
+    justify-content: flex-end;
+    align-items: center;
     margin: 4px;
-    padding-left: 8px;
-    padding-right: 8px;
-    color: #92d048;
+    padding: 8px;
+    min-height: 45px;
+    border: 1px solid #bf3e46;
   }
 
   .word {
@@ -96,7 +118,7 @@
     align-items: center;
     color: #921d22;
     letter-spacing: 2px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bolder
   }
 
@@ -105,4 +127,7 @@
     display: flex;
     align-self: center;
     align-items: center;
+    color: #92d048;
+    font-size: 15px;
+    font-weight: bold;
   }
