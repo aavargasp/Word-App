@@ -10,6 +10,7 @@
 
   .board-container {
     align-self: center;
+    min-width: 172px;
   }
   
   .board-row:after {

@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 `npx create-react-app word-app`
 
-All of the files in the src folder was deleted, [Components](src/components) has all the code created for this app and the [CSS](src/index.css) was modified for this also
+All of the files in the src folder were deleted, [Components](src/components) has all the code created for this app and the [CSS](src/index.css) was modified for this also
 
 In the project directory, you need to run:
 
