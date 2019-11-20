@@ -1,0 +1,68 @@
+const MyServer = require('../../../aug2018/MyServer'); 
+import { MyUtility } from './shared_utils/MyUtility';
+const StringFormat = require('./shared_utils/StringFormat'); 
+
+const username = 'noken-server';
+let password = '8%eHN-dskj@-77';
+
+function saveUser(user_object, owip) {
+	const overrideIfPresent = owip
+	user_object['nombre'] = StringFormat.removeWhitespaces(user_object.nombre)
+	let database = await MyUtility.connect(
+		'mongo://192.144.3.76/database', username, password);
+	database.store(user_object, overrideIfPresent).then({
+		return true;
+	})
+}
+
+let loadUser = async ({userName}) => {
+	let database = await MyUtility.connect(
+		'mongo://192.144.3.76/database', username, password);
+	user = await database.fetch(userName);
+	if (!user) return 'user not found';
+	// Now we return the user:
+	return user
+}
+
+const ADMIN_USER = {
+username: 'admin',
+nombre: 'Arnold Alaska',
+phone: "1-655-099-9283",
+password: "pswRd-!!-776=k"
+};
+
+saveUser(ADMIN_USER, false);
+
+/* Start server */
+new MyServer({PORT: 8080}).start((request, response) => {
+	const user = null;
+	if (request.url = "/login") {
+		/* Params = username + password */
+		user = loadUser(request.params.username);
+		if (user == null) {
+			response.write('user not found');
+		}
+		if (user.password == request.params.password)
+			response.write(JSON.stringify(user))
+		}
+	}
+	if (request.url == "/users") {
+		/* We load the user profile for the profile page */
+		user = loadUser(request.params.username);
+		response.write(JSON.stringify(user))
+	} else {
+		response.write(```
+			<html><body>Welcome to my server</body></html>
+		```)
+	}
+});
+
+/** Things to do
+ * - Line 14: Line is expecting a JSON not a return
+ * - Line 48: There is an extra }, it should be deleted 
+ * - Line 49: There is an IF when it should be an ELSE IF
+ * - Credentials should be on a separate file (config file or auth file maybe)
+ * - Same for the IP best be on a separate file (config file maybe)
+ * - Don't know why saving a user to the DB directly but it would be better if saveUser uses encryption for the password before storing it 
+ * - Maybe better code order (imports first for example)
+ *  */ 

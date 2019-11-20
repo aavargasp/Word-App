@@ -7,14 +7,11 @@ class Board extends React.Component {
     letters = data.board.slice();
 
     render() {
-        //Ask handler passed via props
         const onLetterClick = this.props.onLetterClick;
         const onSelectedLetterClick = this.props.onSelectedLetterClick;
 
-        //Need to know the size of the grid
         const square = Math.sqrt(this.letters.length)
 
-        //Build the board based on the number of letters
         let table = []
         let position = 0
         for (let i = 0; i < square; i++) {

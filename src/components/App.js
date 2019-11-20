@@ -56,7 +56,6 @@ class App extends React.Component {
         this.setState({
             wordArray: []
         })
-        this.result = "invalid"
     }
 
     onLetterClick(id, letter) {
