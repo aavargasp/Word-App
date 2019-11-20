@@ -18,6 +18,15 @@ The App is using the [test json file 2](src/test-board-2.json) for changing this
 
 `import data from '../test-board-2.json'`
 
+- Layout for mobile media:
+
+		![Mobile dimensions.](public/layout-mobile.png)
+
+- Layout for desktop media (ReactJS only):
+
+		![Desktop dimensions.](public/layout-desktop.png)
+
+
 ## Part 3 – Required for all applicants
 
 At the end of the [Code Revision File](public/code_revision.txt) is a list of problems or improvements
