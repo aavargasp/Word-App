@@ -1,39 +1,15 @@
   body {
     font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .app-container {
     display: flex;
-    justify-content: center;
-    align-items: stretch;
-  }
-
-  @media screen and (max-width: 768px) {
-    .app-container {
-      -webkit-flex-direction: column;
-      flex-direction: column;
-    }
-
-    .clear-container {
-      order: 0;
-      width: 276px;
-      align-self: center;
-    }
-
-    .board-container {
-      order: 1;
-    }
-
-    .word-container {
-      order: 2;
-      align-self: center;
-      width: 276px;
-    }
-  }
-
-  .board-container {
-    align-self: center;
-    min-width: 172px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 300px;
   }
   
   .board-row:after {
@@ -66,20 +42,13 @@
     border-radius: 15%;
   }
 
-  .tools-container {
-    display: flex;
-    flex-direction: column;
-    min-width: 200px;
-    justify-content: space-between;
-  }
-
   .clear-container {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
+    justify-content: flex-end;
     margin: 4px;
     padding: 8px;
-    min-height: 45px;
+    min-width: 180px;
   }
 
   .clear-label {
@@ -100,9 +69,12 @@
     content: "X";
   }
 
+  .empty-container {
+    flex-grow: 1;
+  }
+
   .word-container {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
     margin: 4px;
     padding: 8px;
@@ -112,22 +84,45 @@
 
   .word {
     display: flex;
-    flex: 1;
-    align-self: flex-end;
-    align-self: center;
+    flex-grow: 1;
     align-items: center;
     color: #921d22;
     letter-spacing: 2px;
     font-size: 18px;
+    min-width: 180px;
     font-weight: bolder
   }
 
   .word-result {
     margin-left: 20px;
     display: flex;
-    align-self: center;
     align-items: center;
     color: #92d048;
     font-size: 15px;
     font-weight: bold;
+  }
+
+  @media screen and (max-width: 768px) {
+    .app-container {
+      flex-direction: column;
+      flex-wrap: nowrap;
+    }
+
+    .clear-container {
+      order: 0;
+      justify-content: flex-end;
+    }
+
+    .board-container {
+      order: 1;
+    }
+
+    .word-container {
+      order: 2;
+    }
+
+    .empty-container {
+      flex-grow: 0;
+      display: none;
+    }
   }

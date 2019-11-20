@@ -29,7 +29,7 @@ class Board extends React.Component {
     }
 
     renderSquare(id, letter, onLetterClick, onSelectedLetterClick) {
-        return <Square key={id} letter={letter} onLetterClick={onLetterClick} onSelectedLetterClick={onSelectedLetterClick} />;
+        return <Square id={id} letter={letter} onLetterClick={onLetterClick} onSelectedLetterClick={onSelectedLetterClick} />;
     }
 }
 

@@ -4,23 +4,24 @@ import dictionary from '../dictionary.json'
 
 class App extends React.Component {
 
-    words = dictionary.words.slice()
+    wordsDictionary = dictionary.words.slice()
     result = "invalid"
 
     constructor() {
         super()
         this.state = {
-            currentWord: []
+            wordArray: []
         }
 
+        this.onClearClick = this.onClearClick.bind(this)
         this.onLetterClick = this.onLetterClick.bind(this)
         this.onSelectedLetterClick = this.onSelectedLetterClick.bind(this);
     }
 
     render() {
 
-        this.checkDictionary(this.state.currentWord.join(''))
-        console.log("Current Word: ", this.state.currentWord)
+        this.checkDictionary(this.state.wordArray)
+        console.log("Current Word: ", this.state.wordArray)
 
         return (
             <div className="app-container">
@@ -30,45 +31,54 @@ class App extends React.Component {
                         onSelectedLetterClick={this.onSelectedLetterClick}
                     />
                 </div>
-                <div className="tools-container">
-                    <div className="clear-container">
-                        <label className="clear-label">clear word</label>
-                        <button className="clear-button" type="reset" onClick={this.onClearClick}></button>
-                    </div>
-                    <div className="word-container">
-                        <label className="word">{this.state.currentWord.join('')}</label>
-                        <label className="word-result">{this.result}</label>
-                    </div>
+                <div className="clear-container">
+                    <label className="clear-label">clear word</label>
+                    <button className="clear-button" type="reset" onClick={this.onClearClick}></button>
+                </div>
+                <div className="empty-container"></div>
+                <div className="word-container">
+                    <label className="word">{this.renderWord()}</label>
+                    <label className="word-result">{this.result}</label>
                 </div>
             </div>
         )
     }
 
-    onClearClick = () => {
-        this.setState({ currentWord: [] });
-        this.result = "invalid"
-    };
+    renderWord() {
+        let formedWord = ""
+        this.state.wordArray.forEach(element => {
+            formedWord = formedWord.concat(element.letter)
+        });
+        return formedWord
+    }
 
-    onLetterClick(letter) {
-        this.setState((prevState) => {
-            let currentWord = prevState.currentWord.push(letter)
-            return currentWord
+    onClearClick() {
+        this.setState({
+            wordArray: []
+        })
+        this.result = "invalid"
+    }
+
+    onLetterClick(id, letter) {
+        const squareClicked = { id, letter }
+        console.log("Selected Square: " + id + ", " + letter)
+        this.setState({
+            wordArray: this.state.wordArray.concat([squareClicked])
         })
     }
 
-    onSelectedLetterClick(letter) {
-        /* this.setState((prevState) => {
-            const newArray = prevState.currentWord.filter(item => item !== letter)
-            return newArray
-        }) */
-
-        this.setState(prevState => ({
-            currentWord: prevState.currentWord.filter(item => item !== letter)
-        }));
+    onSelectedLetterClick(id, letter) {
+        console.log("Unselected Square: " + id + ", " + letter)
+        this.setState({
+            wordArray: this.state.wordArray.filter(item => !(item.id === id && item.letter === letter))
+        })
     }
 
-    checkDictionary(currentWord) {
-        const exists = this.words.some(
+    checkDictionary() {
+
+        const currentWord = this.renderWord();
+
+        const exists = this.wordsDictionary.some(
             function (arrVal) {
                 return currentWord === arrVal.toUpperCase();
             });

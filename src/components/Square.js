@@ -22,14 +22,10 @@ class Square extends React.Component {
     }
 
     handleClick() {
-        if (!this.state.isSelected) {
-            this.props.onLetterClick(this.props.letter)
-            console.log("Selected letter: " + this.props.letter)
-        }
-        else {
-            this.props.onSelectedLetterClick(this.props.letter)
-            console.log("Unselected letter: " + this.props.letter)
-        }
+        if (!this.state.isSelected)
+            this.props.onLetterClick(this.props.id, this.props.letter)
+        else
+            this.props.onSelectedLetterClick(this.props.id, this.props.letter)
         this.setState(state => ({
             isSelected: !state.isSelected
         }));
