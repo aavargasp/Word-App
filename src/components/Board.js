@@ -5,6 +5,11 @@ import data from '../test-board-2.json'
 class Board extends React.Component {
 
     letters = data.board.slice();
+    squares = []
+
+    clearBoard() {
+        this.squares.forEach(s => s.reset())
+    }
 
     render() {
         const onLetterClick = this.props.onLetterClick;
@@ -22,11 +27,16 @@ class Board extends React.Component {
             }
             table.push(<div className="board-row">{columns}</div>)
         }
+
         return table
     }
 
     renderSquare(id, letter, onLetterClick, onSelectedLetterClick) {
-        return <Square id={id} letter={letter} onLetterClick={onLetterClick} onSelectedLetterClick={onSelectedLetterClick} />;
+        return <Square id={id} ref={this.saveSquare(id)} letter={letter} onLetterClick={onLetterClick} onSelectedLetterClick={onSelectedLetterClick} />;
+    }
+
+    saveSquare = (id) => (ref) => {
+        ref && this.squares.every(e => e.props.id !== id) && this.squares.push(ref)
     }
 }
 

@@ -58,11 +58,11 @@ new MyServer({PORT: 8080}).start((request, response) => {
 });
 
 /** Things to do
- * - Line 14: Line is expecting a JSON not a return
+ * - Line 14: Line is expecting a JSON
  * - Line 48: There is an extra }, it should be deleted 
  * - Line 49: There is an IF when it should be an ELSE IF
+ * - Line 54 and 56: Using ``` instead of using "
  * - Credentials should be on a separate file (config file or auth file maybe)
  * - Same for the IP best be on a separate file (config file maybe)
- * - Don't know why saving a user to the DB directly but it would be better if saveUser uses encryption for the password before storing it 
- * - Maybe better code order (imports first for example)
+ * - It would be better if saveUser uses encryption for the password before storing it
  *  */ 

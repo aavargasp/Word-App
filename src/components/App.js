@@ -21,12 +21,11 @@ class App extends React.Component {
     render() {
 
         this.checkDictionary(this.state.wordArray)
-        console.log("Current Word: ", this.state.wordArray)
 
         return (
             <div className="app-container">
                 <div className="board-container">
-                    <Board
+                    <Board ref={ref => this.board = ref}
                         onLetterClick={this.onLetterClick}
                         onSelectedLetterClick={this.onSelectedLetterClick}
                     />
@@ -53,6 +52,8 @@ class App extends React.Component {
     }
 
     onClearClick() {
+
+        this.board.clearBoard()
         this.setState({
             wordArray: []
         })
@@ -60,14 +61,12 @@ class App extends React.Component {
 
     onLetterClick(id, letter) {
         const squareClicked = { id, letter }
-        console.log("Selected Square: " + id + ", " + letter)
         this.setState({
             wordArray: this.state.wordArray.concat([squareClicked])
         })
     }
 
     onSelectedLetterClick(id, letter) {
-        console.log("Unselected Square: " + id + ", " + letter)
         this.setState({
             wordArray: this.state.wordArray.filter(item => !(item.id === id && item.letter === letter))
         })
