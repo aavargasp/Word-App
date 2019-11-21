@@ -20,11 +20,11 @@ The App is using the [test json file 2](src/test-board-2.json) for changing this
 
 - Layout for mobile media:
 
-		![layout-mobile](./public/layout-mobile.png)
+		![layout-mobile.](./public/layout-mobile.png)
 
 - Layout for desktop media:
 
-		![layout-desktop](./public/layout-desktop.png)
+		![layout-desktop.](./public/layout-desktop.png)
 
 
 ## Part 3 – Required for all applicants
